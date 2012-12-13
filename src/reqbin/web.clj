@@ -1,10 +1,23 @@
 (ns reqbin.web
-  (:use [ring.adapter.jetty :only [run-jetty]]))
+  (:use noir.core)
+  (:require [noir.server :as server]))
 
-(defn app [req]
-  {:status 200
-   :headers {"Content-Type" "text/plain"}
-   :body "Welcome to Request Bin :)"})
+(defn recorder
+  "Request recorder"
+  [handler]
+  (fn [request]
+    (let [resp (handler request)]
+      (do
+        (println "Request: " request)
+        resp))))
+
+(defpage [:any "*"] [] "Haha! You've been recorded!")
 
 (defn -main [port]
-  (run-jetty app {:port (Integer. port)}))
+  (do
+    (server/add-middleware recorder)
+    (server/start (Integer. port))))
+
+
+
+
