@@ -1,0 +1,16 @@
+
+.req-table {
+    display: table;
+}
+
+.req-row {
+    display: table-row;
+    padding-bottom: 3px;
+    padding-top: 3px;
+}
+
+.req-cell {
+    display: table-cell;
+    padding-right: 5px;
+    padding-left: 5px;
+}
